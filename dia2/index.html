@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herramientas Web</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
+            background: linear-gradient(135deg, #8b9db8 0%, #7a8fa3 25%, #6b7a94 50%, #9b8fa3 75%, #8b7a8f 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Patrón de puntos de fondo */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle, rgba(200, 200, 200, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            background: linear-gradient(135deg, #d4c9c1 0%, #c8bfb7 25%, #bdb4ac 50%, #c8bfb7 75%, #d4c9c1 100%);
+            background-size: 200% 200%;
+            animation: containerGradient 8s ease infinite;
+            border-radius: 50px;
+            box-shadow: 
+                0 0 0 8px #8b8680,
+                0 0 0 12px #a89a8f,
+                0 30px 60px rgba(0, 0, 0, 0.3),
+                inset -5px -5px 15px rgba(255, 255, 255, 0.3),
+                inset 5px 5px 15px rgba(0, 0, 0, 0.15);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            border: 3px solid #9b8a7f;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes containerGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Ornamento decorativo superior */
+        .container::before {
+            content: '◆ ◇ ◆ ◇ ◆';
+            display: block;
+            text-align: center;
+            color: #7a6f66;
+            font-size: 12px;
+            margin-bottom: 15px;
+            letter-spacing: 8px;
+            opacity: 0.6;
+        }
+
+        /* Ornamento decorativo inferior */
+        .container::after {
+            content: '◆ ◇ ◆ ◇ ◆';
+            display: block;
+            text-align: center;
+            color: #7a6f66;
+            font-size: 12px;
+            margin-top: 15px;
+            letter-spacing: 8px;
+            opacity: 0.6;
+            position: absolute;
+            bottom: -35px;
+            left: 0;
+            right: 0;
+        }
+
+        /* Estilos para las pestañas */
+        .tabs-header {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 4px dashed #8b7a6f;
+            padding-bottom: 15px;
+        }
+
+        .tab-btn {
+            background: linear-gradient(180deg, #b8a89f 0%, #a89891 50%, #b8a89f 100%);
+            border: 3px solid #8b7a6f;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 900;
+            cursor: pointer;
+            color: #6b5f55;
+            transition: all 0.3s ease;
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
+            background-size: 100% 200%;
+            background-position: 0% 0%;
+        }
+
+        .tab-btn:hover {
+            background-position: 0% 100%;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(90deg, #a8998f 0%, #988980 25%, #9b8a7f 50%, #988980 75%, #a8998f 100%);
+            background-size: 200% 200%;
+            animation: activeTabGradient 3s ease infinite;
+            color: #ffffff;
+            border-color: #6b5f55;
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes activeTabGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .tab-btn:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+            background: linear-gradient(180deg, #b8a89f 0%, #a89891 100%);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        h1 {
+            text-align: center;
+            color: #6b5f55;
+            margin-bottom: 10px;
+            font-size: 32px;
+            font-weight: 900;
+            text-shadow: 2px 2px 0 rgba(255, 255, 255, 0.4), 3px 3px 8px rgba(0, 0, 0, 0.2);
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #8b7a6f;
+            margin-bottom: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.2);
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #6b5f55;
+            font-weight: 900;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 3px solid #9b8a7f;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #e8ddd5 0%, #dcd1c9 50%, #e8ddd5 100%);
+            background-size: 200% 200%;
+            color: #6b5f55;
+        }
+
+        input:hover {
+            background-position: 100% 100%;
+        }
+
+        input::placeholder {
+            color: #b8a89f;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #6b5f55;
+            box-shadow: 
+                0 0 0 4px rgba(107, 95, 85, 0.1),
+                0 0 15px rgba(107, 95, 85, 0.3),
+                inset 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            flex: 1;
+            min-width: 140px;
+            padding: 14px;
+            border: 3px solid;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-convertir {
+            background: linear-gradient(90deg, #a8998f 0%, #988980 25%, #9b8a7f 50%, #988980 75%, #a8998f 100%);
+            background-size: 200% 200%;
+            animation: buttonGradient 4s ease infinite;
+            color: #ffffff;
+            border-color: #7a6f66;
+            box-shadow: 0 8px 0 #6b5f55, 0 12px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-convertir:hover {
+            animation: buttonGradient 2s ease infinite;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 0 #6b5f55, 0 16px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-convertir:active {
+            animation: none;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 0 #6b5f55, 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        @keyframes buttonGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .btn-limpiar {
+            background: linear-gradient(90deg, #b8a89f 0%, #a89891 25%, #b8a89f 50%, #a89891 75%, #b8a89f 100%);
+            background-size: 200% 200%;
+            animation: buttonGradient 4s ease infinite;
+            color: #6b5f55;
+            border-color: #8b7a6f;
+            box-shadow: 0 8px 0 #7a6f66, 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-limpiar:hover {
+            animation: buttonGradient 2s ease infinite;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 0 #7a6f66, 0 16px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        .btn-limpiar:active {
+            animation: none;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 0 #7a6f66, 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-copiar {
+            background: linear-gradient(90deg, #9b8a7f 0%, #8b7a6f 25%, #9b8a7f 50%, #8b7a6f 75%, #9b8a7f 100%);
+            background-size: 200% 200%;
+            animation: buttonGradient 4s ease infinite;
+            color: #ffffff;
+            border-color: #7a6f66;
+            box-shadow: 0 8px 0 #6b5f55, 0 12px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-copiar:hover {
+            animation: buttonGradient 2s ease infinite;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 0 #6b5f55, 0 16px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-copiar:active {
+            animation: none;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 0 #6b5f55, 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-generar {
+            background: linear-gradient(90deg, #a8998f 0%, #988980 25%, #9b8a7f 50%, #988980 75%, #a8998f 100%);
+            background-size: 200% 200%;
+            animation: buttonGradient 4s ease infinite;
+            color: #ffffff;
+            border-color: #7a6f66;
+            box-shadow: 0 8px 0 #6b5f55, 0 12px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-generar:hover {
+            animation: buttonGradient 2s ease infinite;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 0 #6b5f55, 0 16px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-generar:active {
+            animation: none;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 0 #6b5f55, 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .results {
+            background: linear-gradient(135deg, #c8bfb7 0%, #bdb4ac 25%, #c8bfb7 50%, #bdb4ac 75%, #c8bfb7 100%);
+            background-size: 200% 200%;
+            animation: resultsGradient 5s ease infinite;
+            border-radius: 30px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 4px dashed #9b8a7f;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        @keyframes resultsGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 2px dotted #a89a8f;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-label {
+            font-weight: 900;
+            color: #6b5f55;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .result-value {
+            background: linear-gradient(90deg, #dcd1c9 0%, #d0c5bd 50%, #dcd1c9 100%);
+            background-size: 200% 200%;
+            padding: 8px 12px;
+            border-radius: 15px;
+            color: #6b5f55;
+            font-weight: bold;
+            font-size: 16px;
+            border: 2px solid #9b8a7f;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-value:hover {
+            animation: resultValueGradient 2s ease infinite;
+        }
+
+        @keyframes resultValueGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .error {
+            background: linear-gradient(90deg, #c9a8a3 0%, #b89898 25%, #c9a8a3 50%, #b89898 75%, #c9a8a3 100%);
+            background-size: 200% 200%;
+            animation: messageGradient 4s ease infinite;
+            border: 3px dashed #a89898;
+            color: #6b4f47;
+            padding: 12px;
+            border-radius: 20px;
+            margin-top: 20px;
+            display: none;
+            font-weight: 900;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.2);
+        }
+
+        .success {
+            background: linear-gradient(90deg, #b8c9a8 0%, #a8b898 25%, #b8c9a8 50%, #a8b898 75%, #b8c9a8 100%);
+            background-size: 200% 200%;
+            animation: messageGradient 4s ease infinite;
+            border: 3px dashed #98a888;
+            color: #4f6b47;
+            padding: 12px;
+            border-radius: 20px;
+            margin-top: 20px;
+            display: none;
+            font-weight: 900;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes messageGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #b8c9d4 0%, #a8b9c4 25%, #b8c9d4 50%, #a8b9c4 75%, #b8c9d4 100%);
+            background-size: 200% 200%;
+            animation: infoGradient 6s ease infinite;
+            border-left: 5px solid #7a8f9b;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            padding: 15px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #6b7a87;
+            margin-top: 15px;
+            line-height: 1.8;
+            font-weight: 700;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes infoGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .info-box strong {
+            display: block;
+            margin-bottom: 8px;
+            color: #5a6f7a;
+            text-transform: uppercase;
+        }
+
+        .info-box ul {
+            margin-left: 20px;
+        }
+
+        .info-box li {
+            margin-bottom: 5px;
+        }
+
+        .results {
+            background: #f9f9f9;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-label {
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .result-value {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .error {
+            background: #fee;
+            border: 2px solid #f88;
+            color: #c00;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .success {
+            background: #efe;
+            border: 2px solid #8f8;
+            color: #0a0;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #1565c0;
+            margin-top: 15px;
+            line-height: 1.6;
+        }
+
+        /* ===== ESTILOS PARA GENERADOR DE COLORES ===== */
+
+        /* Div que muestra el color generado */
+        .color-display {
+            width: 100%;
+            height: 300px;
+            border-radius: 40px;
+            margin-bottom: 25px;
+            background-color: #a8998f;
+            transition: background-color 0.5s ease, box-shadow 0.5s ease;
+            box-shadow: 
+                0 0 0 5px #d4c9c1,
+                0 0 0 10px #9b8a7f,
+                0 20px 40px rgba(0, 0, 0, 0.25),
+                inset -3px -3px 10px rgba(255, 255, 255, 0.2),
+                inset 3px 3px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 4px solid #7a6f66;
+        }
+
+        /* Patrón de líneas en el div de color */
+        .color-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 255, 255, 0.05) 10px,
+                rgba(255, 255, 255, 0.05) 20px
+            );
+            pointer-events: none;
+        }
+
+        /* Animación sutil cuando cambia el color */
+        .color-display.changing {
+            animation: pulse 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.9);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Párrafo que muestra el código hexadecimal */
+        .color-code {
+            background: linear-gradient(90deg, #dcd1c9 0%, #d0c5bd 25%, #dcd1c9 50%, #d0c5bd 75%, #dcd1c9 100%);
+            background-size: 200% 200%;
+            animation: colorCodeGradient 5s ease infinite;
+            padding: 15px;
+            border-radius: 25px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: 900;
+            color: #6b5f55;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+            text-align: center;
+            border: 3px solid #9b8a7f;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes colorCodeGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Notificación de copia */
+        .notificacion {
+            background: linear-gradient(90deg, #b8c9a8 0%, #a8b898 25%, #b8c9a8 50%, #a8b898 75%, #b8c9a8 100%);
+            background-size: 200% 200%;
+            animation: notificacionGradient 4s ease infinite;
+            color: #4f6b47;
+            padding: 12px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            font-weight: 900;
+            display: none;
+            animation: slideDown 0.4s ease, notificacionGradient 4s ease infinite;
+            border: 3px dashed #98a888;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes notificacionGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .notificacion.visible {
+            display: block;
+        }
+
+        /* Responsive para móviles */
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px;
+                border-radius: 35px;
+            }
+
+            h1 {
+                font-size: 24px;
+                margin-bottom: 15px;
+            }
+
+            .color-display {
+                height: 250px;
+                margin-bottom: 20px;
+            }
+
+            button {
+                min-width: 100px;
+                padding: 12px 10px;
+                font-size: 12px;
+            }
+
+            .button-group {
+                gap: 8px;
+            }
+
+            .tabs-header {
+                gap: 5px;
+            }
+
+            .tab-btn {
+                padding: 10px 12px;
+                font-size: 11px;
+                border-radius: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Pestañas de navegación -->
+        <div class="tabs-header">
+            <button class="tab-btn active" data-tab="tab-temperatura">🌡️ Temperaturas</button>
+            <button class="tab-btn" data-tab="tab-colores">🎨 Colores</button>
+        </div>
+
+        <!-- PESTAÑA 1: CONVERSOR DE TEMPERATURAS -->
+        <div id="tab-temperatura" class="tab-content active">
+            <h1>Conversor de Temperaturas</h1>
+            <p class="subtitle">Convierte fácilmente entre Celsius, Fahrenheit y Kelvin</p>
+
+            <div class="input-group">
+                <label for="inputCelsius">Temperatura en Celsius (°C)</label>
+                <input 
+                    type="number" 
+                    id="inputCelsius" 
+                    placeholder="Ej: 25" 
+                    step="0.01"
+                >
+            </div>
+
+            <div class="button-group">
+                <button class="btn-convertir" id="btnConvertir">Convertir</button>
+                <button class="btn-limpiar" id="btnLimpiar">Limpiar</button>
+            </div>
+
+            <div id="error" class="error"></div>
+            <div id="success" class="success"></div>
+
+            <div id="results" class="results" style="display: none;">
+                <div class="result-item">
+                    <span class="result-label">Celsius (°C)</span>
+                    <span class="result-value" id="resultCelsius">-</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Fahrenheit (°F)</span>
+                    <span class="result-value" id="resultFahrenheit">-</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Kelvin (K)</span>
+                    <span class="result-value" id="resultKelvin">-</span>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <strong>💡 Información útil:</strong>
+                <ul style="margin-left: 20px; margin-top: 8px;">
+                    <li>0°C = 32°F = 273.15K (Punto de congelación del agua)</li>
+                    <li>25°C = 77°F ≈ 298K (Temperatura ambiente)</li>
+                    <li>100°C = 212°F = 373.15K (Punto de ebullición del agua)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- PESTAÑA 2: GENERADOR DE COLORES -->
+        <div id="tab-colores" class="tab-content">
+            <h1>Generador de Colores Aleatorios</h1>
+            <p class="subtitle">Crea colores aleatorios al instante</p>
+
+            <!-- Notificación de copia -->
+            <div class="notificacion" id="notificacion"></div>
+
+            <!-- Div que muestra el color -->
+            <div class="color-display" id="colorDisplay" title="Haz click para generar un nuevo color">
+            </div>
+
+            <!-- Código hexadecimal -->
+            <div class="color-code">
+                Código: <span id="colorCode">#FF6B6B</span>
+            </div>
+
+            <!-- Botones -->
+            <div class="button-group">
+                <button class="btn-generar" id="btnGenerar">Generar Color</button>
+                <button class="btn-copiar" id="btnCopiar">Copiar</button>
+                <button class="btn-limpiar" id="btnLimpiarColor">Restaurar</button>
+            </div>
+
+            <div class="info-box">
+                <strong>💡 Información:</strong>
+                <ul style="margin-left: 20px; margin-top: 8px;">
+                    <li>Haz click en "Generar Color" para crear un color aleatorio</li>
+                    <li>Haz click en el div del color para generar uno nuevo rápidamente</li>
+                    <li>Copia el código hexadecimal del color al portapapeles</li>
+                    <li>Los códigos hexadecimales están en formato #RRGGBB</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========================================================================
+        // SISTEMA DE PESTAÑAS
+        // ========================================================================
+
+        /**
+         * Función para cambiar entre pestañas
+         * Oculta todas las pestañas y muestra solo la seleccionada
+         * @param {string} tabName - ID de la pestaña a mostrar
+         */
+        function cambiarTab(tabName) {
+            // Ocultar todas las pestañas
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Desactivar todos los botones de pestaña
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            tabBtns.forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Mostrar la pestaña seleccionada
+            document.getElementById(tabName).classList.add('active');
+
+            // Activar el botón correspondiente
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+        }
+
+        // Event listeners para los botones de pestaña
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                cambiarTab(btn.dataset.tab);
+            });
+        });
+
+        // ========================================================================
+        // CONVERSOR DE TEMPERATURAS
+        // ========================================================================
+
+        // Obtener elementos del DOM para temperaturas
+        const inputCelsius = document.getElementById('inputCelsius');
+        const btnConvertir = document.getElementById('btnConvertir');
+        const btnLimpiar = document.getElementById('btnLimpiar');
+        const results = document.getElementById('results');
+        const errorDiv = document.getElementById('error');
+        const successDiv = document.getElementById('success');
+
+        /**
+         * Función para convertir temperaturas de Celsius a Fahrenheit y Kelvin
+         * Utiliza las fórmulas:
+         * - Fahrenheit: °F = (°C × 9/5) + 32
+         * - Kelvin: K = °C + 273.15
+         * @param {number} celsius - Temperatura en grados Celsius
+         * @returns {object|null} - Objeto con las conversiones o null si es inválido
+         */
+        function conversorTemperaturas(celsius) {
+            // Validar que el parámetro sea un número
+            if (typeof celsius !== 'number' || isNaN(celsius)) {
+                return null;
+            }
+
+            // Convertir Celsius a Fahrenheit: °F = (°C × 9/5) + 32
+            const fahrenheit = (celsius * 9/5) + 32;
+
+            // Convertir Celsius a Kelvin: K = °C + 273.15
+            const kelvin = celsius + 273.15;
+
+            // Retornar un objeto con todos los valores redondeados a 2 decimales
+            return {
+                celsius: Math.round(celsius * 100) / 100,
+                fahrenheit: Math.round(fahrenheit * 100) / 100,
+                kelvin: Math.round(kelvin * 100) / 100
+            };
+        }
+
+        // Función para mostrar errores
+        function mostrarError(mensaje) {
+            errorDiv.textContent = '❌ ' + mensaje;
+            errorDiv.style.display = 'block';
+            successDiv.style.display = 'none';
+            results.style.display = 'none';
+        }
+
+        // Función para mostrar éxito
+        function mostrarExito(mensaje) {
+            successDiv.textContent = '✅ ' + mensaje;
+            successDiv.style.display = 'block';
+            errorDiv.style.display = 'none';
+        }
+
+        // Función para convertir y mostrar resultados
+        function convertir() {
+            const valorCelsius = parseFloat(inputCelsius.value);
+
+            // Validar entrada
+            if (inputCelsius.value === '') {
+                mostrarError('Por favor, ingresa una temperatura en Celsius');
+                return;
+            }
+
+            if (isNaN(valorCelsius)) {
+                mostrarError('El valor ingresado no es un número válido');
+                return;
+            }
+
+            // Convertir temperaturas
+            const resultado = conversorTemperaturas(valorCelsius);
+
+            if (!resultado) {
+                mostrarError('Error al realizar la conversión');
+                return;
+            }
+
+            // Mostrar resultados
+            document.getElementById('resultCelsius').textContent = resultado.celsius + ' °C';
+            document.getElementById('resultFahrenheit').textContent = resultado.fahrenheit + ' °F';
+            document.getElementById('resultKelvin').textContent = resultado.kelvin + ' K';
+
+            results.style.display = 'block';
+            mostrarExito('¡Conversión realizada exitosamente!');
+        }
+
+        // Función para limpiar temperatura
+        function limpiar() {
+            inputCelsius.value = '';
+            results.style.display = 'none';
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+            inputCelsius.focus();
+        }
+
+        // Event listeners para temperatura
+        btnConvertir.addEventListener('click', convertir);
+        btnLimpiar.addEventListener('click', limpiar);
+
+        // Permitir convertir con Enter
+        inputCelsius.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                convertir();
+            }
+        });
+
+        // ========================================================================
+        // GENERADOR DE COLORES ALEATORIOS
+        // ========================================================================
+
+        // Obtener elementos del DOM para colores
+        const colorDisplay = document.getElementById('colorDisplay');
+        const colorCode = document.getElementById('colorCode');
+        const btnGenerar = document.getElementById('btnGenerar');
+        const btnCopiar = document.getElementById('btnCopiar');
+        const btnLimpiarColor = document.getElementById('btnLimpiarColor');
+        const notificacion = document.getElementById('notificacion');
+
+        // Color inicial
+        let colorActual = '#FF6B6B';
+
+        /**
+         * Función que genera un color hexadecimal aleatorio en formato #RRGGBB
+         * 
+         * Proceso:
+         * 1. Genera un número aleatorio entre 0 y 16777215 (0xFFFFFF en hexadecimal)
+         * 2. Convierte ese número a hexadecimal
+         * 3. Rellena con ceros a la izquierda si es necesario
+         * 4. Añade el símbolo # al principio
+         * 
+         * @returns {string} - Código de color hexadecimal (ej: #A4C639)
+         */
+        function generarColorAleatorio() {
+            // Generar número aleatorio entre 0 y 16777215 (0xFFFFFF)
+            // Math.random() genera entre 0 y 1, multiplicamos por 16777215
+            const numeroAleatorio = Math.floor(Math.random() * 16777215);
+
+            // Convertir a hexadecimal (toString(16)) y rellenar con ceros
+            // padStart(6, '0') asegura que siempre tenga 6 dígitos
+            const colorHex = '#' + numeroAleatorio.toString(16).toUpperCase().padStart(6, '0');
+
+            return colorHex;
+        }
+
+        /**
+         * Función que cambia el color del div display y actualiza el código hexadecimal
+         * Incluye una animación suave de transición
+         * 
+         * Proceso:
+         * 1. Genera un nuevo color aleatorio
+         * 2. Actualiza la variable colorActual
+         * 3. Aplica el color al div (colorDisplay)
+         * 4. Actualiza el texto que muestra el código
+         * 5. Agrega una animación visual (pulse)
+         */
+        function cambiarColor() {
+            // Generar nuevo color
+            colorActual = generarColorAleatorio();
+
+            // Aplicar color al div con transición suave
+            colorDisplay.style.backgroundColor = colorActual;
+
+            // Actualizar el texto del código hexadecimal
+            colorCode.textContent = colorActual;
+
+            // Agregar animación visual
+            colorDisplay.classList.remove('changing');
+            // Usar setTimeout para reiniciar la animación
+            setTimeout(() => {
+                colorDisplay.classList.add('changing');
+            }, 10);
+        }
+
+        /**
+         * Función que copia el código hexadecimal del color al portapapeles del usuario
+         * Muestra una notificación visual de confirmación
+         * 
+         * Proceso:
+         * 1. Usa la API Clipboard de navegadores modernos
+         * 2. Copia el código hexadecimal
+         * 3. Muestra una notificación de éxito
+         * 4. La notificación desaparece después de 2 segundos
+         */
+        function copiarAlPortapapeles() {
+            // Copiar el código al portapapeles usando la API moderna
+            navigator.clipboard.writeText(colorActual).then(() => {
+                // Si se copia correctamente, mostrar notificación
+                mostrarNotificacionColor(`✅ ¡Código copiado! ${colorActual}`);
+            }).catch(() => {
+                // Si hay error, mostrar notificación de error
+                mostrarNotificacionColor('❌ Error al copiar el código');
+            });
+        }
+
+        /**
+         * Función que muestra una notificación en la pantalla que desaparece automáticamente
+         * @param {string} mensaje - Texto a mostrar en la notificación
+         */
+        function mostrarNotificacionColor(mensaje) {
+            // Actualizar el contenido de la notificación
+            notificacion.textContent = mensaje;
+
+            // Mostrar la notificación
+            notificacion.classList.add('visible');
+
+            // Hacer desaparecer después de 2 segundos (2000 milisegundos)
+            setTimeout(() => {
+                notificacion.classList.remove('visible');
+            }, 2000);
+        }
+
+        /**
+         * Función que restaura el color inicial (#FF6B6B)
+         */
+        function restaurarColor() {
+            colorActual = '#FF6B6B';
+            colorDisplay.style.backgroundColor = colorActual;
+            colorCode.textContent = colorActual;
+            mostrarNotificacionColor('🔄 Color restaurado al color inicial');
+        }
+
+        // ========================================================================
+        // EVENT LISTENERS PARA GENERADOR DE COLORES
+        // ========================================================================
+
+        // Click en botón "Generar Color"
+        btnGenerar.addEventListener('click', cambiarColor);
+
+        // Click en botón "Copiar Código"
+        btnCopiar.addEventListener('click', copiarAlPortapapeles);
+
+        // Click en botón "Restaurar"
+        btnLimpiarColor.addEventListener('click', restaurarColor);
+
+        // Click directo en el div del color para generar uno nuevo
+        colorDisplay.addEventListener('click', cambiarColor);
+
+        // Permitir generar color con la tecla Enter (si el botón está enfocado)
+        btnGenerar.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                cambiarColor();
+            }
+        });
+
+        // ========================================================================
+        // INICIALIZACIÓN
+        // ========================================================================
+        // Mostrar el color inicial cuando carga la página
+        colorDisplay.style.backgroundColor = colorActual;
+        inputCelsius.focus();
+    </script>
+</body>
+</html>
