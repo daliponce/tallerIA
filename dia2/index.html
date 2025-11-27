@@ -19,7 +19,7 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
+                align-items: center;
             padding: 20px;
             position: relative;
             overflow-x: hidden;
@@ -57,8 +57,8 @@
                 0 30px 60px rgba(0, 0, 0, 0.3),
                 inset -5px -5px 15px rgba(255, 255, 255, 0.3),
                 inset 5px 5px 15px rgba(0, 0, 0, 0.15);
-            padding: 40px;
-            max-width: 500px;
+            padding: 50px;
+            max-width: 1000px;
             width: 100%;
             border: 3px solid #9b8a7f;
             position: relative;
@@ -162,8 +162,9 @@
         h1 {
             text-align: center;
             color: #6b5f55;
-            margin-bottom: 10px;
-            font-size: 32px;
+            margin-bottom: 15px;
+            margin-top: 15px;
+            font-size: 36px;
             font-weight: 900;
             text-shadow: 2px 2px 0 rgba(255, 255, 255, 0.4), 3px 3px 8px rgba(0, 0, 0, 0.2);
             letter-spacing: 2px;
@@ -172,8 +173,8 @@
         .subtitle {
             text-align: center;
             color: #8b7a6f;
-            margin-bottom: 30px;
-            font-size: 14px;
+            margin-bottom: 40px;
+            font-size: 15px;
             font-weight: 700;
             text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.2);
         }
@@ -461,6 +462,299 @@
             margin-bottom: 5px;
         }
 
+        /* ===== ESTILOS PARA ANALIZADOR DE TEXTO ===== */
+
+        .analizador-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .textarea-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .textarea-label {
+            font-weight: 700;
+            color: #6b5f55;
+            margin-bottom: 15px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 450px;
+            padding: 25px;
+            border: 3px solid #9b8a7f;
+            border-radius: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 15px;
+            resize: vertical;
+            transition: all 0.3s ease;
+            color: #6b5f55;
+            line-height: 2;
+            background: linear-gradient(135deg, #e8ddd5 0%, #dcd1c9 50%, #e8ddd5 100%);
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #6b5f55;
+            box-shadow: 0 0 0 4px rgba(107, 95, 85, 0.1), 0 0 15px rgba(107, 95, 85, 0.3);
+        }
+
+        textarea::placeholder {
+            color: #b8a89f;
+        }
+
+        .stats-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .stat-card-analizador {
+            background: linear-gradient(135deg, #dcd1c9 0%, #d0c5bd 100%);
+            border-radius: 15px;
+            padding: 30px 25px;
+            border-left: 5px solid;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-height: 140px;
+        }
+
+        .stat-card-analizador.caracteres {
+            border-left-color: #667eea;
+            border-bottom-color: #667eea;
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8edff 100%);
+        }
+
+        .stat-card-analizador.caracteres:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.15);
+        }
+
+        .stat-card-analizador.caracteres-sin {
+            border-left-color: #764ba2;
+            border-bottom-color: #764ba2;
+            background: linear-gradient(135deg, #f7f0ff 0%, #f0e8ff 100%);
+        }
+
+        .stat-card-analizador.caracteres-sin:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(118, 75, 162, 0.15);
+        }
+
+        .stat-card-analizador.palabras {
+            border-left-color: #00d4ff;
+            border-bottom-color: #00d4ff;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e8f7ff 100%);
+        }
+
+        .stat-card-analizador.palabras:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.15);
+        }
+
+        .stat-card-analizador.oraciones {
+            border-left-color: #00c853;
+            border-bottom-color: #00c853;
+            background: linear-gradient(135deg, #f0fff4 0%, #e8fff0 100%);
+        }
+
+        .stat-card-analizador.oraciones:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 200, 83, 0.15);
+        }
+
+        .stat-card-analizador.lectura {
+            border-left-color: #ff9500;
+            border-bottom-color: #ff9500;
+            background: linear-gradient(135deg, #fff8f0 0%, #fff0e8 100%);
+        }
+
+        .stat-card-analizador.lectura:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 149, 0, 0.15);
+        }
+
+        .stat-label {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            color: #7a6f66;
+            margin-bottom: 15px;
+        }
+
+        .stat-value-analizador {
+            font-size: 48px;
+            font-weight: 900;
+            color: #6b5f55;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            line-height: 1.2;
+        }
+
+        .stat-card-analizador.caracteres .stat-value-analizador {
+            color: #667eea;
+        }
+
+        .stat-card-analizador.caracteres-sin .stat-value-analizador {
+            color: #764ba2;
+        }
+
+        .stat-card-analizador.palabras .stat-value-analizador {
+            color: #00d4ff;
+        }
+
+        .stat-card-analizador.oraciones .stat-value-analizador {
+            color: #00c853;
+        }
+
+        .stat-card-analizador.lectura .stat-value-analizador {
+            color: #ff9500;
+        }
+
+        .stat-value-analizador.updated {
+            animation: numberPulse 0.5s ease;
+        }
+
+        @keyframes numberPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+
+        .analizador-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 40px;
+            margin-bottom: 30px;
+        }
+
+        .btn-analizador {
+            padding: 18px 20px;
+            border: 3px solid;
+            border-radius: 15px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.1);
+            min-height: 55px;
+        }
+
+        .btn-copiar-analizador {
+            background: linear-gradient(90deg, #a8998f 0%, #988980 25%, #9b8a7f 50%, #988980 75%, #a8998f 100%);
+            background-size: 200% 200%;
+            animation: buttonGradient 4s ease infinite;
+            color: #ffffff;
+            border-color: #7a6f66;
+        }
+
+        .btn-copiar-analizador:hover {
+            animation: buttonGradient 2s ease infinite;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-limpiar-analizador {
+            background: linear-gradient(90deg, #b8a89f 0%, #a89891 25%, #b8a89f 50%, #a89891 75%, #b8a89f 100%);
+            background-size: 200% 200%;
+            animation: buttonGradient 4s ease infinite;
+            color: #6b5f55;
+            border-color: #8b7a6f;
+        }
+
+        .btn-limpiar-analizador:hover {
+            animation: buttonGradient 2s ease infinite;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .notification-analizador {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #b8c9a8;
+            color: #4f6b47;
+            padding: 12px 15px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            display: none;
+            animation: slideDown 0.4s ease;
+            z-index: 1000;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            border: 2px solid #98a888;
+        }
+
+        .notification-analizador.visible {
+            display: block;
+        }
+
+        .notification-analizador.error {
+            background: #c9a8a3;
+            color: #6b4f47;
+            border-color: #a89898;
+        }
+
+        /* Grid responsive para analizador */
+        @media (max-width: 768px) {
+            .analizador-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            textarea {
+                min-height: 350px;
+                padding: 20px;
+            }
+
+            .stats-wrapper {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .stat-card-analizador {
+                padding: 25px 20px;
+                min-height: 130px;
+            }
+
+            .stat-value-analizador {
+                font-size: 38px;
+            }
+
+            .analizador-buttons {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .btn-analizador {
+                padding: 16px 15px;
+                font-size: 13px;
+            }
+
+            .notification-analizador {
+                right: 10px;
+                left: 10px;
+                top: 10px;
+                font-size: 12px;
+            }
+        }
+
         .results {
             background: #f9f9f9;
             border-radius: 12px;
@@ -696,6 +990,7 @@
         <div class="tabs-header">
             <button class="tab-btn active" data-tab="tab-temperatura">🌡️ Temperaturas</button>
             <button class="tab-btn" data-tab="tab-colores">🎨 Colores</button>
+            <button class="tab-btn" data-tab="tab-analizador">📝 Analizador</button>
         </div>
 
         <!-- PESTAÑA 1: CONVERSOR DE TEMPERATURAS -->
@@ -777,6 +1072,78 @@
                     <li>Haz click en el div del color para generar uno nuevo rápidamente</li>
                     <li>Copia el código hexadecimal del color al portapapeles</li>
                     <li>Los códigos hexadecimales están en formato #RRGGBB</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ======== PESTAÑA ANALIZADOR DE TEXTO ======== -->
+        <div id="tab-analizador" class="tab-content">
+            <h1>Analizador de Texto</h1>
+            <p class="subtitle">Analiza tu texto en tiempo real</p>
+
+            <!-- Notificación -->
+            <div class="notification-analizador" id="notification-analizador"></div>
+
+            <!-- Contenedor principal del analizador -->
+            <div class="analizador-container">
+                <!-- Sección de entrada de texto -->
+                <div class="textarea-wrapper">
+                    <textarea 
+                        id="textInput" 
+                        placeholder="Escribe o pega tu texto aquí para analizar..."
+                        class="textarea-analizador">
+                    </textarea>
+                </div>
+
+                <!-- Sección de estadísticas -->
+                <div class="stats-wrapper">
+                    <!-- Caracteres totales -->
+                    <div class="stat-card-analizador caracteres">
+                        <div class="stat-label">Caracteres Totales</div>
+                        <div class="stat-value-analizador caracteres" id="charCount">0</div>
+                    </div>
+
+                    <!-- Caracteres sin espacios -->
+                    <div class="stat-card-analizador caracteres-sin">
+                        <div class="stat-label">Sin Espacios</div>
+                        <div class="stat-value-analizador caracteres-sin" id="charNoSpaceCount">0</div>
+                    </div>
+
+                    <!-- Palabras -->
+                    <div class="stat-card-analizador palabras">
+                        <div class="stat-label">Palabras</div>
+                        <div class="stat-value-analizador palabras" id="wordCount">0</div>
+                    </div>
+
+                    <!-- Oraciones -->
+                    <div class="stat-card-analizador oraciones">
+                        <div class="stat-label">Oraciones</div>
+                        <div class="stat-value-analizador oraciones" id="sentenceCount">0</div>
+                    </div>
+
+                    <!-- Tiempo de lectura -->
+                    <div class="stat-card-analizador lectura">
+                        <div class="stat-label">Tiempo de Lectura</div>
+                        <div class="stat-value-analizador lectura" id="readingTime">0 min</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones de acción -->
+            <div class="analizador-buttons">
+                <button class="btn-analizador" id="copyBtn-analizador">📋 Copiar Estadísticas</button>
+                <button class="btn-limpiar-analizador" id="clearBtn-analizador">🗑️ Limpiar Todo</button>
+            </div>
+
+            <!-- Información -->
+            <div class="info-box">
+                <strong>💡 Información:</strong>
+                <ul style="margin-left: 20px; margin-top: 8px;">
+                    <li>Las estadísticas se actualizan en tiempo real mientras escribes</li>
+                    <li>Los caracteres sin espacios no incluyen espacios, tabulaciones o saltos de línea</li>
+                    <li>Las palabras se cuentan como grupos de caracteres separados por espacios</li>
+                    <li>Las oraciones se detectan por puntos (.), signos de exclamación (!) o interrogación (?)</li>
+                    <li>El tiempo de lectura se calcula asumiendo 200 palabras por minuto</li>
                 </ul>
             </div>
         </div>
