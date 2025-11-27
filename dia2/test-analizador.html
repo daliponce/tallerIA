@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Analizador de Texto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            margin: 15px 0;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat {
+            background: #f9f9f9;
+            padding: 15px;
+            border-left: 4px solid #667eea;
+            border-radius: 4px;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #667eea;
+        }
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-copy {
+            background: #667eea;
+            color: white;
+        }
+        .btn-clear {
+            background: #999;
+            color: white;
+        }
+        .btn-copy:hover {
+            background: #556dd9;
+        }
+        .btn-clear:hover {
+            background: #777;
+        }
+        .info {
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+            color: #2e7d32;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 Test del Analizador de Texto</h1>
+        <p>Escribe aquí para probar que las estadísticas se actualicen en tiempo real:</p>
+
+        <textarea id="textInput" placeholder="Escribe tu texto aquí..."></textarea>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-label">Caracteres Totales</div>
+                <div class="stat-value" id="charCount">0</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Sin Espacios</div>
+                <div class="stat-value" id="charNoSpaceCount">0</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Palabras</div>
+                <div class="stat-value" id="wordCount">0</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Oraciones</div>
+                <div class="stat-value" id="sentenceCount">0</div>
+            </div>
+            <div class="stat" style="grid-column: 1 / -1;">
+                <div class="stat-label">Tiempo de Lectura</div>
+                <div class="stat-value" id="readingTime">0 min</div>
+            </div>
+        </div>
+
+        <div>
+            <button class="btn-copy" id="copyBtn-analizador">📋 Copiar Estadísticas</button>
+            <button class="btn-clear" id="clearBtn-analizador">🗑️ Limpiar</button>
+        </div>
+
+        <div id="notification-analizador" style="display: none; background: #4caf50; color: white; padding: 10px; margin-top: 15px; border-radius: 4px;"></div>
+
+        <div class="info">
+            <strong>✅ Test:</strong> Si escribes algo en el textarea y los números cambian automáticamente, ¡el analizador funciona correctamente!
+        </div>
+    </div>
+
+    <script src="dom.js"></script>
+</body>
+</html>
