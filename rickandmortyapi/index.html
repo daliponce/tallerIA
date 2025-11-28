@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="es">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>Rick and Morty - Buscador</title>
+	<style>
+		:root{--bg:#f7fafc;--card:#ffffff;--muted:#6b7280}
+		body{font-family:Inter,Segoe UI,Arial,Helvetica,sans-serif;margin:18px;background:var(--bg);color:#0f172a}
+		.container{max-width:980px;margin:0 auto}
+		h1{font-size:20px;margin:6px 0 14px}
+		.controls{display:flex;gap:8px;align-items:center;margin-bottom:12px}
+		.controls input{flex:1;padding:10px;border-radius:8px;border:1px solid #e2e8f0}
+		.controls button{padding:10px 12px;border-radius:8px;border:1px solid #94a3b8;background:#fff;cursor:pointer}
+		#resultado .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+		@media(max-width:900px){#resultado .grid{grid-template-columns:repeat(2,1fr)}}
+		@media(max-width:520px){#resultado .grid{grid-template-columns:repeat(1,1fr)}}
+		.card{background:var(--card);border-radius:12px;padding:12px;border:1px solid rgba(15,23,42,0.06);box-shadow:0 8px 20px rgba(2,6,23,0.06);text-align:center;cursor:default}
+		.card img{width:140px;height:140px;object-fit:cover;border-radius:8px;margin:0 auto 8px;display:block}
+		.card .name{font-weight:700;text-transform:capitalize;margin-bottom:6px}
+		.card .meta{font-size:13px;color:var(--muted);margin:2px 0}
+		.pager{display:flex;gap:8px;justify-content:center;align-items:center;margin-top:14px}
+		.pager button{padding:8px 12px;border-radius:8px;border:1px solid #cbd5e1;background:#fff;cursor:pointer}
+		.muted{color:var(--muted)}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Rick and Morty - Buscador</h1>
+		<div class="controls">
+			<input id="inputCharacter" placeholder="Busca por nombre (Ej: Rick)" />
+			<button id="btnBuscar">Buscar</button>
+			<button id="btnLimpiar">Limpiar</button>
+		</div>
+
+		<div id="resultado"><div class="muted">Cargando...</div></div>
+
+		<div class="pager" id="pager">
+			<button id="btnPrev">← Anterior</button>
+			<div id="pageInfo" class="muted">Página 1</div>
+			<button id="btnNext">Siguiente →</button>
+		</div>
+	</div>
+
+	<script src="API.js"></script>
+</body>
+</html>

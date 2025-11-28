@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consumo de APIs</title>
+    <style>
+        :root{
+            --bg1: #ffecd2;
+            --bg2: #fcb69f;
+            --card: rgba(255,255,255,0.9);
+            --accent: #6a11cb;
+            --accent-2: #2575fc;
+            --muted: #666;
+        }
+        *{box-sizing: border-box}
+        html,body{height:100%}
+        body {
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+            margin:0; padding:40px 20px; display:flex; align-items:center; justify-content:center;
+            background: linear-gradient(135deg,var(--bg1),var(--bg2));
+            -webkit-font-smoothing:antialiased;
+        }
+        .card{
+            width:100%; max-width:820px; background:var(--card); border-radius:16px; padding:28px;
+            box-shadow: 0 10px 30px rgba(20,20,40,0.12); text-align:center;
+            backdrop-filter: blur(6px);
+        }
+        h1{margin:0 0 6px; font-size:28px; color:#2b2b2b}
+        .subtitle{color:var(--muted); margin-bottom:14px}
+        .controls{display:flex; gap:12px; align-items:center; justify-content:center; flex-wrap:wrap}
+        input[type="text"]{
+            padding:12px 14px; border-radius:10px; border:1px solid rgba(0,0,0,0.08); width:320px;
+            font-size:15px; outline:none; transition:box-shadow .18s ease, transform .12s ease;
+        }
+        input[type="text"]:focus{box-shadow:0 6px 18px rgba(37,117,252,0.18); transform:translateY(-2px)}
+        .btn{
+            position:relative; overflow:hidden; border:0; padding:10px 18px; border-radius:10px; cursor:pointer;
+            color:#fff; font-weight:600; font-size:15px; transition:transform .12s ease, box-shadow .12s ease;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+        }
+        .btn:active{transform:translateY(2px)}
+        .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));}
+        .btn-secondary{background:linear-gradient(90deg,#4b5563,#6b7280);}
+        .btn-ghost{background:transparent; color:var(--muted); border:1px solid rgba(0,0,0,0.06)}
+        .btn:hover{box-shadow:0 10px 26px rgba(37,117,252,0.12); transform:translateY(-3px)}
+        .pulse{animation:pulse 1.8s ease-in-out infinite}
+        @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.03)}100%{transform:scale(1)}}
+        #resultado{margin-top:20px; padding:18px; border-radius:12px; text-align:left; display:flex; gap:18px; align-items:center; justify-content:flex-start}
+        #resultado .info{flex:1}
+        #resultado img{max-width:160px; border-radius:12px}
+        .tag{display:inline-block; padding:6px 10px; border-radius:999px; background:linear-gradient(90deg,#ffd7a8,#ffc09f); color:#4b2e00; font-weight:700; font-size:13px}
+        .muted{color:var(--muted); font-size:14px}
+        .btn .ripple{position:absolute; border-radius:50%; transform:scale(0); background:rgba(255,255,255,0.35); animation:ripple .6s linear; pointer-events:none}
+        @keyframes ripple{to{transform:scale(4); opacity:0}}
+        @media(max-width:520px){
+            input[type="text"]{width:100%}
+            #resultado{flex-direction:column; align-items:center}
+            #resultado img{max-width:220px}
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Buscador de Pokémon</h1>
+        <div class="subtitle">Busca por nombre y muestra información con estilo y animaciones</div>
+
+        <div class="controls">
+            <input type="text" id="inputPokemon" placeholder="Escribe un nombre (ej: pikachu)" aria-label="nombre pokemon">
+            <button id="btnBuscar" class="btn btn-primary">Buscar</button>
+            <button id="btnRandom" class="btn btn-ghost">Aleatorio</button>
+            <button id="btnLimpiar" class="btn btn-secondary">Limpiar</button>
+        </div>
+
+        <div id="resultado">
+            <!-- Aquí aparecerá la info del Pokémon -->
+            <div class="muted">Sin resultados aún.</div>
+        </div>
+    </div>
+
+    <script>
+        // Efecto ripple en botones y utilidades UI
+        document.querySelectorAll('.btn').forEach(btn=>{
+            btn.addEventListener('click', function(e){
+                // ripple
+                const rect = this.getBoundingClientRect();
+                const circle = document.createElement('span');
+                const size = Math.max(rect.width, rect.height);
+                circle.style.width = circle.style.height = size + 'px';
+                circle.style.left = (e.clientX - rect.left - size/2) + 'px';
+                circle.style.top = (e.clientY - rect.top - size/2) + 'px';
+                circle.className = 'ripple';
+                this.appendChild(circle);
+                setTimeout(()=> circle.remove(), 700);
+            });
+        });
+
+        // Limpiar resultados
+        document.getElementById('btnLimpiar').addEventListener('click', ()=>{
+            const res = document.getElementById('resultado');
+            res.innerHTML = '<div class="muted">Sin resultados aún.</div>';
+            document.getElementById('inputPokemon').value = '';
+        });
+
+        // Botón aleatorio que dispara la búsqueda
+        const sample = ['pikachu','charmander','bulbasaur','squirtle','eevee','mew','psyduck','jigglypuff'];
+        document.getElementById('btnRandom').addEventListener('click', ()=>{
+            const name = sample[Math.floor(Math.random()*sample.length)];
+            const input = document.getElementById('inputPokemon');
+            input.value = name;
+            // activar búsqueda existente (si api.js escucha al botón)
+            const buscar = document.getElementById('btnBuscar');
+            buscar.classList.add('pulse');
+            setTimeout(()=> buscar.classList.remove('pulse'), 1200);
+            buscar.click();
+        });
+    </script>
+
+    <script src="api.js"></script>
+</body>
+</html>

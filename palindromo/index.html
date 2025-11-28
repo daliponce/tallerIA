@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Detector de Palíndromos</title>
+	<style>
+		:root{
+			--bg1:#eef2ff;
+			--card:#ffffff;
+			--muted:#6b7785;
+			--accent1:#667eea;
+			--accent2:#764ba2;
+		}
+		*{box-sizing:border-box}
+		body { font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background: radial-gradient(1200px 600px at 10% 10%, rgba(102,126,234,0.08), transparent), linear-gradient(180deg,#fbfdff,var(--bg1)); margin:0; padding:36px; color:#22303f }
+		.page { max-width:900px; margin:0 auto }
+		.card { max-width:760px; margin:36px auto; background:var(--card); border-radius:16px; padding:28px; box-shadow:0 12px 40px rgba(34,48,63,0.08); border:1px solid rgba(100,110,140,0.06) }
+		h1 { margin:0 0 6px 0; font-size:26px; color:var(--accent2); letter-spacing:0.2px }
+		p.subtitle { margin:0 0 18px 0; color:var(--muted); font-size:14px }
+		.controls { display:flex; gap:12px; align-items:center; }
+		input[type="text"] { flex:1; padding:14px 16px; border-radius:12px; border:1px solid #e3e8f2; font-size:15px; background:linear-gradient(180deg,#fff,#fbfdff); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6) }
+		input[type="text"]:focus{ outline:none; box-shadow:0 6px 24px rgba(102,126,234,0.12); border-color:var(--accent1) }
+		.btn { padding:10px 14px; border-radius:10px; border: none; cursor:pointer; color:white; font-weight:700; display:inline-flex; align-items:center; gap:8px }
+		.btn-check { background: linear-gradient(90deg,var(--accent1),var(--accent2)); box-shadow:0 6px 18px rgba(102,126,234,0.18) }
+		.btn-clear { background: transparent; color:var(--muted); border:1px solid #e6e9f2; box-shadow:none; font-weight:700 }
+		.result { margin-top:18px; padding:16px; border-radius:10px; background:linear-gradient(180deg,#ffffff,#fbfdff); border:1px solid #eef4ff; color:#22303f; font-weight:700; display:flex; align-items:center; gap:12px }
+		.result.hide{ display:none }
+		.result.ok { border-color:#dbf5df; background:#f7fff8; color:#1b6b2e }
+		.result.bad { border-color:#ffd7d7; background:#fff6f6; color:#9b2b2b }
+		.result .icon{ font-size:20px }
+		.note { margin-top:12px; font-size:13px; color:var(--muted) }
+		.normalized { margin-top:10px; font-size:13px; color:#475569; background:#f5f7fb; padding:10px; border-radius:8px; border:1px solid #e6eefb }
+		.fade-in{ animation:fadeIn 260ms ease both }
+		@keyframes fadeIn{ from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
+		@media(max-width:600px){ .card{padding:20px} input[type="text"]{padding:12px} .controls{flex-direction:column-reverse;align-items:stretch} .btn{width:100%} }
+	</style>
+</head>
+<body>
+	<div class="page">
+	<div class="card">
+		<h1>Detector de Palíndromos</h1>
+		<p class="subtitle">Introduce una palabra o frase; el detector ignorará mayúsculas, espacios y signos de puntuación.</p>
+
+		<div class="controls">
+			<input id="palindromeInput" type="text" placeholder="Ej: A man, a plan, a canal: Panama" aria-label="Texto a comprobar" />
+			<div style="display:flex;gap:8px">
+				<button id="checkBtn" class="btn btn-check">🔎 Comparar</button>
+				<button id="clearBtn" class="btn btn-clear">✖ Limpiar</button>
+			</div>
+		</div>
+
+		<div id="result" class="result hide"></div>
+		<div id="normalized" class="normalized" style="display:none"></div>
+		<div class="note">Presiona Enter dentro del campo para comprobar rápidamente.</div>
+	</div>
+	</div>
+
+	<!-- Lógica reutilizada: palindromo.js debe estar en la misma carpeta -->
+	<script src="palindromo.js"></script>
+	<script>
+		// Enlaza la UI con la función esPalindromo definida en palindromo.js
+		document.addEventListener('DOMContentLoaded', () => {
+			const input = document.getElementById('palindromeInput');
+			const btn = document.getElementById('checkBtn');
+			const clearBtn = document.getElementById('clearBtn');
+			const result = document.getElementById('result');
+			const normalizedEl = document.getElementById('normalized');
+
+			// Utilidad: normalizar texto igual que en palindromo.js
+			function normalizeText(text){
+				if (typeof text !== 'string') return '';
+				return text
+					.toLowerCase()
+					.normalize('NFD')
+					.replace(/[\u0300-\u036f]/g, '')
+					.replace(/[^a-z0-9]/g, '');
+			}
+
+			function mostrarResultado(texto, esPal){
+				if (texto.trim() === ''){
+					result.className = 'result hide';
+					normalizedEl.style.display = 'none';
+					return;
+				}
+				const norm = normalizeText(texto);
+				// set result content and classes
+				result.classList.remove('hide','ok','bad','fade-in');
+				if (esPal){
+					result.classList.add('result','ok','fade-in');
+					result.innerHTML = `<span class="icon">✅</span><div>"${texto}" es un palíndromo.</div>`;
+				} else {
+					result.classList.add('result','bad','fade-in');
+					result.innerHTML = `<span class="icon">❌</span><div>"${texto}" NO es un palíndromo.</div>`;
+				}
+				// show normalized version for transparency
+				if (norm.length > 0){
+					normalizedEl.style.display = 'block';
+					normalizedEl.classList.add('fade-in');
+					normalizedEl.textContent = `Versión normalizada: ${norm}`;
+				} else {
+					normalizedEl.style.display = 'none';
+				}
+			}
+
+			// Click en Comparar
+			btn.addEventListener('click', () => {
+				const texto = input.value;
+				try{
+					const es = typeof esPalindromo === 'function' ? esPalindromo(texto) : false;
+					mostrarResultado(texto, es);
+				} catch(err){
+					result.className = 'result bad';
+					result.textContent = 'Error: no se pudo evaluar el texto.';
+					console.error(err);
+				}
+			});
+
+			// Limpiar
+			clearBtn.addEventListener('click', () => {
+				input.value = '';
+				input.focus();
+				result.className = 'result hide';
+				normalizedEl.style.display = 'none';
+			});
+
+			// Enter para comprobar
+			input.addEventListener('keydown', (e) => {
+				if (e.key === 'Enter'){
+					e.preventDefault();
+					btn.click();
+				}
+			});
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller de programación IA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0f2f7 0%, #d4e8f0 25%, #c8dfe8 50%, #bcd6e0 75%, #b0cdd8 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Frutiger Aero glass orbs background */
+        body::before {
+            content: '';
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(135, 206, 235, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -200px;
+            right: -200px;
+            z-index: 0;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(144, 238, 144, 0.25) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: -100px;
+            left: -100px;
+            z-index: 0;
+            animation: float 15s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(-30px, 30px);
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            background: linear-gradient(135deg, #4a90a4 0%, #5fa8bc 50%, #4a90a4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 10px rgba(74, 144, 164, 0.1);
+        }
+
+        .author {
+            font-size: 1.3rem;
+            color: #5a8a9a;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(74, 144, 164, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: slideUp 0.6s ease-out forwards;
+        }
+
+        .project-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .project-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .project-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .project-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .project-card:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .project-card:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        .project-card:nth-child(7) {
+            animation-delay: 0.7s;
+        }
+
+        .project-card:nth-child(8) {
+            animation-delay: 0.8s;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.7s;
+        }
+
+        .project-card:hover::before {
+            left: 100%;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 48px rgba(74, 144, 164, 0.25);
+            border-color: rgba(95, 168, 188, 0.5);
+        }
+
+        .project-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #87ceeb 0%, #5fa8bc 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            box-shadow: 0 4px 15px rgba(95, 168, 188, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover .project-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            color: #4a90a4;
+            margin-bottom: 12px;
+            font-weight: 400;
+        }
+
+        .project-description {
+            color: #6a9aa8;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .project-link {
+            display: inline-block;
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #87ceeb 0%, #5fa8bc 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(95, 168, 188, 0.2);
+        }
+
+        .project-link:hover {
+            box-shadow: 0 6px 20px rgba(95, 168, 188, 0.35);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .author {
+                font-size: 1.1rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Taller de programación IA</h1>
+            <p class="author">Diego Dali Martinez Ponce</p>
+        </header>
+
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-icon">📚</div>
+                <h2 class="project-title">Buscador de Libros</h2>
+                <p class="project-description">Aplicación para buscar libros utilizando la API de Open Library con
+                    diseño Frutiger Aero.</p>
+                <a href="./libros/toneria1.html" class="project-link">Ver Proyecto</a>
+            </div>
+
+            <div class="project-card">
+                <div class="project-icon">🐾</div>
+                <h2 class="project-title">Tamagochi</h2>
+                <p class="project-description">Juego interactivo de mascota virtual con controles de hambre, energía y
+                    felicidad.</p>
+                <a href="./tamagochi/nose.html" class="project-link">Ver Proyecto</a>
+            </div>
+
+            <div class="project-card">
+                <div class="project-icon">🔄</div>
+                <h2 class="project-title">Palíndromo</h2>
+                <p class="project-description">Herramienta para verificar si una palabra o frase es un palíndromo.</p>
+                <a href="./palindromo/index.html" class="project-link">Ver Proyecto</a>
+            </div>
+
+            <div class="project-card">
+                <div class="project-icon">👽</div>
+                <h2 class="project-title">Rick and Morty API</h2>
+                <p class="project-description">Explorador de personajes utilizando la API de Rick and Morty.</p>
+                <a href="./rickandmortyapi/index.html" class="project-link">Ver Proyecto</a>
+            </div>
+
+            <div class="project-card">
+                <div class="project-icon">🔌</div>
+                <h2 class="project-title">API</h2>
+                <p class="project-description">Proyecto de integración con APIs externas.</p>
+                <a href="./API/index.html" class="project-link">Ver Proyecto</a>
+            </div>
+
+            <div class="project-card">
+                <div class="project-icon">⚙️</div>
+                <h2 class="project-title">Funciones</h2>
+                <p class="project-description">Colección de funciones y utilidades de JavaScript.</p>
+                <a href="./funciones/index.html" class="project-link">Ver Proyecto</a>
+            </div>
+
+            <div class="project-card">
+                <div class="project-icon">📅</div>
+                <h2 class="project-title">Día 2</h2>
+                <p class="project-description">Ejercicios y proyectos del segundo día del taller.</p>
+                <a href="./dia2/index.html" class="project-link">Ver Proyecto</a>
+            </div>
+
+            <div class="project-card">
+                <div class="project-icon">🗂️</div>
+                <h2 class="project-title">Bin</h2>
+                <p class="project-description">Archivos binarios y recursos adicionales del taller.</p>
+                <a href="./bin/index.html" class="project-link">Ver Proyecto</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

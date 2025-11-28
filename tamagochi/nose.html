@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taco Tamagotchi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="game-container">
+        <div class="thought-bubble" id="thought-bubble">
+            Miau...
+        </div>
+
+        <div class="cat-display">
+            <img src="taco.png" alt="Taco el Gato" class="cat-img" id="taco-img">
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-row">
+                <span class="stat-label">Hambre</span>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="hunger-bar" style="width: 0%"></div>
+                </div>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label">Energía</span>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="energy-bar" style="width: 100%"></div>
+                </div>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label">Felicidad</span>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="happiness-bar" style="width: 100%"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button onclick="taco.feed()">🍖 Alimentar</button>
+            <button onclick="taco.sleep()">💤 Dormir</button>
+            <button onclick="taco.play()">🧶 Jugar</button>
+            <button onclick="taco.pet()">❤️ Acariciar</button>
+        </div>
+    </div>
+
+    <script src="api.js"></script>
+</body>
+
+</html>
